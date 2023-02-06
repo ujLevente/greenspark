@@ -1,9 +1,4 @@
-import {
-    BadRequestException,
-    Inject,
-    Injectable,
-    NotFoundException,
-} from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProductProvider } from 'src/data/product-provider';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -19,13 +14,6 @@ export class ProductService {
     }
 
     updateOne(id: number, updateProductDto: UpdateProductDto) {
-        try {
-            return this.productProvider.updateOne(id, updateProductDto);
-        } catch (error) {
-            if (error instanceof NotFoundException) {
-                throw new BadRequestException(error.message);
-            }
-            throw error;
-        }
+        return this.productProvider.updateOne(id, updateProductDto);
     }
 }

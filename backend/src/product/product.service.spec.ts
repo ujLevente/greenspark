@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { productStub } from '../../test/stubs/product-stub';
 import { Product, ProductProvider } from '../data/product-provider';
@@ -61,9 +61,9 @@ describe('ProductService', () => {
             expect(result).toHaveProperty('selectedColor', 'green');
         });
 
-        it('should throw BadRequestException if the product does not exist', () => {
+        it('should throw NotFoundException if the product does not exist', () => {
             const fn = () => service.updateOne(2, updateProps);
-            expect(fn).toThrowError(BadRequestException);
+            expect(fn).toThrowError(NotFoundException);
         });
     });
 });

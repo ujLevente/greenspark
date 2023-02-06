@@ -1,4 +1,4 @@
-import { BadRequestException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { productStub } from '../../test/stubs/product-stub';
 import { Product } from '../data/product-provider';
@@ -15,7 +15,7 @@ describe('ProductController', () => {
                 dto: Pick<Product, 'active' | 'linked' | 'selectedColor'>,
             ) => {
                 if (id === 2) {
-                    throw new BadRequestException();
+                    throw new NotFoundException();
                 }
                 return { ...productStub(1), ...dto, id };
             },
@@ -63,9 +63,9 @@ describe('ProductController', () => {
             expect(result).toHaveProperty('selectedColor', 'green');
         });
 
-        it('should throw BadRequestException if the product does not exist', () => {
+        it('should throw NotFoundException if the product does not exist', () => {
             const fn = () => controller.updateOne({ id: 2 }, updateProps);
-            expect(fn).toThrowError(BadRequestException);
+            expect(fn).toThrowError(NotFoundException);
         });
     });
 });
