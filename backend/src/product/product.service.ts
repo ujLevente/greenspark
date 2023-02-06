@@ -7,4 +7,8 @@ export class ProductService {
         @Inject('ProductProvider')
         private readonly productProvider: ProductProvider,
     ) {}
+
+    findAll() {
+        return this.productProvider.findAll();
+    }
 }
