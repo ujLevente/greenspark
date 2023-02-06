@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product, ProductProvider } from './product-provider';
 
 @Injectable()
@@ -37,8 +37,24 @@ export class ProductProviderMemory implements ProductProvider {
         return [...this.products];
     }
 
-    updateOne(id: number) {
+    updateOne(
+        id: number,
+        {
+            active,
+            linked,
+            selectedColor,
+        }: Pick<Product, 'active' | 'linked' | 'selectedColor'>,
+    ) {
         const product = this.products.find((product) => product.id === id);
+
+        if (!product) {
+            throw new NotFoundException(`Product with id: ${id} not found`);
+        }
+
+        product.active = active;
+        product.linked = linked;
+        product.selectedColor = selectedColor;
+
         return { ...product };
     }
 }
