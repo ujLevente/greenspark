@@ -15,7 +15,6 @@ describe('AppController', () => {
     });
 
     describe('root', () => {
-        console.log('asdsa');
         it('should return "Hello World!"', () => {
             expect(appController.getHello()).toBe('Hello World!');
         });
