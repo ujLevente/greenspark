@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { productStub } from '../../test/stubs/product-stub';
 import { Product } from '../data/product-provider';
@@ -66,6 +66,12 @@ describe('ProductController', () => {
         it('should throw NotFoundException if the product does not exist', () => {
             const fn = () => controller.updateOne({ id: 2 }, updateProps);
             expect(fn).toThrowError(NotFoundException);
+        });
+
+        it('should throw BadRequestException if the id is not a number', () => {
+            const fn = () =>
+                controller.updateOne({ id: 'notANumber' }, updateProps);
+            expect(fn).toThrowError(BadRequestException);
         });
     });
 });
