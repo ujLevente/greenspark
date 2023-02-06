@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { productStub } from '../../test/stubs/product-stub';
 import { Product } from '../data/product-provider';
-import { productStub } from '../test/stubs/product-stub';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 

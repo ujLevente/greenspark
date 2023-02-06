@@ -16,6 +16,6 @@ export class ProductController {
         @Param() { id }: { id: any },
         @Body() updateProductDto: UpdateProductDto,
     ) {
-        return this.productService.updateOne(id, updateProductDto);
+        return this.productService.updateOne(Number(id), updateProductDto);
     }
 }

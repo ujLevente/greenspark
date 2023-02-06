@@ -1,7 +1,7 @@
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { productStub } from '../../test/stubs/product-stub';
 import { Product, ProductProvider } from '../data/product-provider';
-import { productStub } from '../test/stubs/product-stub';
 import { ProductService } from './product.service';
 
 describe('ProductService', () => {
