@@ -14,6 +14,6 @@ export interface ProductProvider {
     findAll: () => Product[];
     updateOne: (
         arg0: number,
-        arg1: Pick<Product, 'active' | 'linked' | 'selectedColor'>,
+        arg1: Partial<Pick<Product, 'active' | 'linked' | 'selectedColor'>>,
     ) => Product;
 }

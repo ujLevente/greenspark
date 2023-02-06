@@ -46,9 +46,8 @@ describe('ProductController', () => {
     });
 
     describe('updateOne', () => {
-        const updateProps: Pick<
-            Product,
-            'active' | 'linked' | 'selectedColor'
+        const updateProps: Partial<
+            Pick<Product, 'active' | 'linked' | 'selectedColor'>
         > = {
             active: false,
             linked: false,

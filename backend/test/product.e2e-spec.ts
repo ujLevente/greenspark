@@ -32,9 +32,8 @@ describe('ProductController (e2e)', () => {
     });
 
     describe('/products/:id (PUT)', () => {
-        const updateProps: Pick<
-            Product,
-            'active' | 'linked' | 'selectedColor'
+        const updateProps: Partial<
+            Pick<Product, 'active' | 'linked' | 'selectedColor'>
         > = {
             active: false,
             linked: false,
@@ -65,10 +64,7 @@ describe('ProductController (e2e)', () => {
             return request(app.getHttpServer())
                 .put('/products/notANumber')
                 .send(updateProps)
-                .expect(400)
-                .expect((res) => {
-                    console.log(res.body);
-                });
+                .expect(400);
         });
     });
 });

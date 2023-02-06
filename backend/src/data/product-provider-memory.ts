@@ -39,22 +39,25 @@ export class ProductProviderMemory implements ProductProvider {
 
     updateOne(
         id: number,
-        {
-            active,
-            linked,
-            selectedColor,
-        }: Pick<Product, 'active' | 'linked' | 'selectedColor'>,
+        updateProps: Partial<
+            Pick<Product, 'active' | 'linked' | 'selectedColor'>
+        >,
     ) {
-        const product = this.products.find((product) => product.id === id);
+        const productIndex = this.products.findIndex(
+            (product) => product.id === id,
+        );
 
-        if (!product) {
+        if (productIndex === -1) {
             throw new NotFoundException(`Product with id: ${id} not found`);
         }
 
-        product.active = active;
-        product.linked = linked;
-        product.selectedColor = selectedColor;
+        const updatedProduct = {
+            ...this.products[productIndex],
+            ...updateProps,
+        };
 
-        return { ...product };
+        this.products[productIndex] = updatedProduct;
+
+        return { ...updatedProduct };
     }
 }
