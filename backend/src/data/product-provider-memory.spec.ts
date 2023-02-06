@@ -29,7 +29,7 @@ describe('ProductProviderMemory', () => {
             selectedColor: 'blue',
         };
 
-        it('should return the product with the specified id', () => {
+        it('should return the updated product with the specified id', () => {
             const result = productProviderMemory.updateOne(2, updateProps);
             expect(result).toHaveProperty('id', 2);
             expect(result).toHaveProperty('active', true);
