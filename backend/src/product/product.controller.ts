@@ -1,4 +1,21 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductService } from './product.service';
 
-@Controller('product')
-export class ProductController {}
+@Controller('products')
+export class ProductController {
+    constructor(private readonly productService: ProductService) {}
+
+    @Get()
+    findAll() {
+        return this.productService.findAll();
+    }
+
+    @Put(':id')
+    updateOne(
+        @Param() { id }: { id: any },
+        @Body() updateProductDto: UpdateProductDto,
+    ) {
+        return this.productService.updateOne(id, updateProductDto);
+    }
+}
