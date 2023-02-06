@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Get,
+    Param,
+    Put,
+} from '@nestjs/common';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductService } from './product.service';
 
@@ -16,6 +23,9 @@ export class ProductController {
         @Param() { id }: { id: any },
         @Body() updateProductDto: UpdateProductDto,
     ) {
+        if (isNaN(id)) {
+            throw new BadRequestException('id is not a valid number');
+        }
         return this.productService.updateOne(Number(id), updateProductDto);
     }
 }
