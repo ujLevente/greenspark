@@ -1,5 +1,7 @@
-import { Product, ProductProvider } from './ProductProvider';
+import { Injectable } from '@nestjs/common';
+import { Product, ProductProvider } from './product-provider';
 
+@Injectable()
 export class ProductProviderMemory implements ProductProvider {
     private readonly products: Product[] = [
         {
