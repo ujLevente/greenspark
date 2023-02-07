@@ -1,12 +1,13 @@
-import { axiosInstance } from './axios';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ProductList } from './components/product/ProductList';
+
+const queryClient = new QueryClient();
 
 function App() {
     return (
-        <div className="App">
-            <button onClick={() => axiosInstance.get('')} type="button">
-                testApi
-            </button>
-        </div>
+        <QueryClientProvider client={queryClient}>
+            <ProductList />
+        </QueryClientProvider>
     );
 }
 
