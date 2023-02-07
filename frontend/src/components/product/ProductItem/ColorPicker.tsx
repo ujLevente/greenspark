@@ -11,7 +11,13 @@ type ColorPickerProps = {
 
 export function ColorPicker({ onChange, value }: ColorPickerProps) {
     return (
-        <FormControl sx={{ display: 'flex', flexDirection: 'row' }}>
+        <FormControl
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+            }}
+        >
             <Typography>Badge colour</Typography>
             <RadioGroup
                 aria-labelledby="color-picker"

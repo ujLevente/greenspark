@@ -40,19 +40,42 @@ export function ProductItem({ product }: ProductItemProps) {
                     onChange={handChange}
                     name="linked"
                     checked={linked}
-                    control={<Checkbox />}
+                    control={
+                        <Checkbox
+                            sx={{
+                                marginRight: '-9px',
+                            }}
+                        />
+                    }
                     label="Link to Public Profile"
                     labelPlacement="start"
+                    sx={{
+                        margin: 0,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                    }}
                 />
                 <ColorPicker onChange={handChange} value={selectedColor} />
                 <FormControlLabel
                     onChange={handChange}
                     name="active"
                     checked={active}
-                    control={<Switch color="primary" />}
+                    control={
+                        <Switch
+                            color="primary"
+                            sx={{
+                                marginRight: '-6px',
+                            }}
+                        />
+                    }
                     label="Activate badge"
                     labelPlacement="start"
                     value={active}
+                    sx={{
+                        margin: 0,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                    }}
                 />
             </Box>
         </Box>
