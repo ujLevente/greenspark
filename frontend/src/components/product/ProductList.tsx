@@ -1,4 +1,4 @@
-import { Card, styled, Typography } from '@mui/material';
+import { Box, Card, Divider, styled, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '../../api/products';
 import { ProductItem } from './ProductItem';
@@ -16,9 +16,18 @@ export function ProductList() {
             <Typography color="common.black" variant="h3">
                 Per product widgets
             </Typography>
-            {data.map((product) => (
-                <ProductItem key={product.id} product={product} />
-            ))}
+            <Divider sx={{ mt: 1.5, mb: 2.5, height: '2px' }} />
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: 7.25,
+                }}
+            >
+                {data.map((product) => (
+                    <ProductItem key={product.id} product={product} />
+                ))}
+            </Box>
         </ContainerCard>
     );
 }
