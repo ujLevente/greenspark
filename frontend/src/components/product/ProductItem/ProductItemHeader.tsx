@@ -15,7 +15,7 @@ export function ProductItemHeader({
 }: ProductItemHeaderProps) {
     const testColor = LIGHT_COLORS.includes(selectedColor)
         ? 'text.primary'
-        : 'text.secondary';
+        : 'secondary.main';
 
     const img = LIGHT_COLORS.includes(selectedColor)
         ? '/greenspark_green.svg'

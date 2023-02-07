@@ -14,7 +14,7 @@ export const palette: PaletteOptions = {
     },
     text: {
         primary: '#3B755F',
-        secondary: '#F9F9F9',
+        secondary: '#212121',
     },
     divider: '#B0B0B0',
 };
