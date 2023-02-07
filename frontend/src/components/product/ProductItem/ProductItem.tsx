@@ -1,12 +1,7 @@
-import {
-    Box,
-    Checkbox,
-    FormControlLabel,
-    Radio,
-    Switch,
-    Typography,
-} from '@mui/material';
+import { Box, Checkbox, FormControlLabel, Switch } from '@mui/material';
 import { Product } from '../../../api/products';
+import { useOptimisticUpdate } from '../hooks/useOptimisticUpdate';
+import { ColorPicker } from './ColorPicker';
 import { ProductItemHeader } from './ProductItemHeader';
 
 type ProductItemProps = {
@@ -15,14 +10,16 @@ type ProductItemProps = {
 
 export function ProductItem({ product }: ProductItemProps) {
     const { action, active, amount, id, linked, selectedColor, type } = product;
+    const { mutate } = useOptimisticUpdate();
 
-    const controlProps = (item: string) => ({
-        checked: false,
-        onChange: () => {},
-        value: item,
-        name: 'color-radio-button-demo',
-        inputProps: { 'aria-label': item },
-    });
+    const handChange = (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        event: React.ChangeEvent<any>,
+        value: boolean | string
+    ) => {
+        const dto = { id, [event.target.name]: value };
+        mutate(dto);
+    };
 
     return (
         <Box
@@ -40,24 +37,22 @@ export function ProductItem({ product }: ProductItemProps) {
             />
             <Box>
                 <FormControlLabel
+                    onChange={handChange}
+                    name="linked"
                     checked={linked}
                     control={<Checkbox />}
                     label="Link to Public Profile"
                     labelPlacement="start"
                 />
-
-                <Typography variant="body1" color="text.primary">
-                    Badge colour
-                </Typography>
-                <Radio {...controlProps('a')} />
-                <Radio {...controlProps('b')} color="secondary" />
-                <Radio {...controlProps('c')} color="success" />
-                <Radio {...controlProps('d')} color="default" />
+                <ColorPicker onChange={handChange} value={selectedColor} />
                 <FormControlLabel
+                    onChange={handChange}
+                    name="active"
                     checked={active}
                     control={<Switch color="primary" />}
                     label="Activate badge"
                     labelPlacement="start"
+                    value={active}
                 />
             </Box>
         </Box>

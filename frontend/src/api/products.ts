@@ -13,7 +13,7 @@ export type Product = {
 };
 
 export type UpdateProductDto = Partial<
-    Pick<Product, 'active' | 'linked' | 'selectedColor'>
+    Partial<Pick<Product, 'active' | 'linked' | 'selectedColor'>>
 >;
 
 export async function fetchProducts() {
@@ -22,10 +22,10 @@ export async function fetchProducts() {
     return response.data;
 }
 
-export async function updateProduct(
-    id: number,
-    updateProductDto: UpdateProductDto
-) {
+export async function updateProduct({
+    id,
+    ...updateProductDto
+}: { id: number } & UpdateProductDto) {
     const response = await axiosInstance.put<Product>(
         `products/${id}`,
         updateProductDto
