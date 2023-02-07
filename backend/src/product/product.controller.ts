@@ -1,5 +1,4 @@
 import {
-    BadRequestException,
     Body,
     Controller,
     Get,
@@ -30,9 +29,6 @@ export class ProductController {
         )
         id: number,
     ) {
-        if (isNaN(id)) {
-            throw new BadRequestException('id is not a valid number');
-        }
         return this.productService.findOne(id);
     }
 
@@ -47,9 +43,6 @@ export class ProductController {
         id: number,
         @Body() updateProductDto: UpdateProductDto,
     ) {
-        if (isNaN(id)) {
-            throw new BadRequestException('id is not a valid number');
-        }
         return this.productService.updateOne(Number(id), updateProductDto);
     }
 }
