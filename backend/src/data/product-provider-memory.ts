@@ -37,6 +37,16 @@ export class ProductProviderMemory implements ProductProvider {
         return [...this.products];
     }
 
+    findOne(id: number) {
+        const product = this.products.find((product) => product.id === id);
+
+        if (!product) {
+            throw new NotFoundException(`Product with id: ${id} not found`);
+        }
+
+        return product;
+    }
+
     updateOne(
         id: number,
         updateProps: Partial<

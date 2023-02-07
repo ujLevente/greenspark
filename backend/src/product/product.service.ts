@@ -16,4 +16,8 @@ export class ProductService {
     updateOne(id: number, updateProductDto: UpdateProductDto) {
         return this.productProvider.updateOne(id, updateProductDto);
     }
+
+    findOne(id: number) {
+        return this.productProvider.findOne(id);
+    }
 }

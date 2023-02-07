@@ -19,6 +19,19 @@ describe('ProductProviderMemory', () => {
         });
     });
 
+    describe('findOne', () => {
+        it('should return the product with the specified id', () => {
+            const result = productProviderMemory.findOne(1);
+            expect(result).toHaveProperty('id', 1);
+            expect(result).toHaveProperty('type', 'plastic bottles');
+        });
+
+        it('should throw NotFoundException if the product does not exist', () => {
+            const fn = () => productProviderMemory.findOne(4);
+            expect(fn).toThrowError(NotFoundException);
+        });
+    });
+
     describe('updateOne', () => {
         const updateProps: Partial<
             Pick<Product, 'active' | 'linked' | 'selectedColor'>

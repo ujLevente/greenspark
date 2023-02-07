@@ -8,12 +8,18 @@ describe('ProductService', () => {
     let service: ProductService;
     const mockProductProvider: jest.Mocked<ProductProvider> = {
         findAll: jest.fn(() => [productStub(1), productStub(2)]),
+        findOne: jest.fn((id: number) => {
+            if (id > 1) {
+                throw new NotFoundException();
+            }
+            return productStub(1);
+        }),
         updateOne: jest.fn(
             (
                 id: number,
                 dto: Pick<Product, 'active' | 'linked' | 'selectedColor'>,
             ) => {
-                if (id === 2) {
+                if (id > 1) {
                     throw new NotFoundException();
                 }
                 return { ...productStub(1), ...dto, id };
@@ -40,6 +46,19 @@ describe('ProductService', () => {
         it('should return a list of products', () => {
             const result = service.findAll();
             expect(result).toHaveLength(2);
+        });
+    });
+
+    describe('findOne', () => {
+        it('should return the product with the specified id', () => {
+            const result = service.findOne(1);
+            expect(result).toHaveProperty('id', 1);
+            expect(result).toHaveProperty('type', 'plastic bottles');
+        });
+
+        it('should throw NotFoundException if the product does not exist', () => {
+            const fn = () => service.findOne(2);
+            expect(fn).toThrowError(NotFoundException);
         });
     });
 
