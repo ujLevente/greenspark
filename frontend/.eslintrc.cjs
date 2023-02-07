@@ -21,6 +21,7 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'prettier', 'unused-imports'],
     rules: {
+        '@typescript-eslint/no-use-before-define': 0,
         'import/no-extraneous-dependencies': [
             'error',
             {

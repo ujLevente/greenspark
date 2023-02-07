@@ -1,12 +1,17 @@
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ProductList } from './components/product/ProductList';
+import { theme } from './theme';
 
 const queryClient = new QueryClient();
 
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <ProductList />
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <ProductList />
+            </ThemeProvider>
         </QueryClientProvider>
     );
 }
