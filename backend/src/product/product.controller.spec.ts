@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { productStub } from '../../test/stubs/product-stub';
 import { Product } from '../data/product-provider';
@@ -9,12 +9,18 @@ describe('ProductController', () => {
     let controller: ProductController;
     const mockProductService = {
         findAll: jest.fn(() => [productStub(1), productStub(2)]),
+        findOne: jest.fn((id: number) => {
+            if (id > 1) {
+                throw new NotFoundException();
+            }
+            return productStub(1);
+        }),
         updateOne: jest.fn(
             (
                 id: number,
                 dto: Pick<Product, 'active' | 'linked' | 'selectedColor'>,
             ) => {
-                if (id === 2) {
+                if (id > 1) {
                     throw new NotFoundException();
                 }
                 return { ...productStub(1), ...dto, id };
@@ -45,6 +51,19 @@ describe('ProductController', () => {
         });
     });
 
+    describe('findOne', () => {
+        it('should return the product with the specified id', () => {
+            const result = controller.findOne(1);
+            expect(result).toHaveProperty('id', 1);
+            expect(result).toHaveProperty('type', 'plastic bottles');
+        });
+
+        it('should throw NotFoundException if the product does not exist', () => {
+            const fn = () => controller.findOne(2);
+            expect(fn).toThrowError(NotFoundException);
+        });
+    });
+
     describe('updateOne', () => {
         const updateProps: Partial<
             Pick<Product, 'active' | 'linked' | 'selectedColor'>
@@ -55,7 +74,7 @@ describe('ProductController', () => {
         };
 
         it('should return the updated product with the specified id', () => {
-            const result = controller.updateOne({ id: 1 }, updateProps);
+            const result = controller.updateOne(1, updateProps);
             expect(result).toHaveProperty('id', 1);
             expect(result).toHaveProperty('active', false);
             expect(result).toHaveProperty('linked', false);
@@ -63,14 +82,8 @@ describe('ProductController', () => {
         });
 
         it('should throw NotFoundException if the product does not exist', () => {
-            const fn = () => controller.updateOne({ id: 2 }, updateProps);
+            const fn = () => controller.updateOne(2, updateProps);
             expect(fn).toThrowError(NotFoundException);
-        });
-
-        it('should throw BadRequestException if the id is not a number', () => {
-            const fn = () =>
-                controller.updateOne({ id: 'notANumber' }, updateProps);
-            expect(fn).toThrowError(BadRequestException);
         });
     });
 });

@@ -13,11 +13,11 @@ export class ProductService {
         return this.productProvider.findAll();
     }
 
-    updateOne(id: number, updateProductDto: UpdateProductDto) {
-        return this.productProvider.updateOne(id, updateProductDto);
-    }
-
     findOne(id: number) {
         return this.productProvider.findOne(id);
+    }
+
+    updateOne(id: number, updateProductDto: UpdateProductDto) {
+        return this.productProvider.updateOne(id, updateProductDto);
     }
 }

@@ -3,7 +3,9 @@ import {
     Body,
     Controller,
     Get,
+    HttpStatus,
     Param,
+    ParseIntPipe,
     Put,
 } from '@nestjs/common';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -18,9 +20,31 @@ export class ProductController {
         return this.productService.findAll();
     }
 
+    @Get(':id')
+    findOne(
+        @Param(
+            'id',
+            new ParseIntPipe({
+                errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
+            }),
+        )
+        id: number,
+    ) {
+        if (isNaN(id)) {
+            throw new BadRequestException('id is not a valid number');
+        }
+        return this.productService.findOne(id);
+    }
+
     @Put(':id')
     updateOne(
-        @Param() { id }: { id: any },
+        @Param(
+            'id',
+            new ParseIntPipe({
+                errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
+            }),
+        )
+        id: number,
         @Body() updateProductDto: UpdateProductDto,
     ) {
         if (isNaN(id)) {

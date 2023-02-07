@@ -31,6 +31,30 @@ describe('ProductController (e2e)', () => {
             });
     });
 
+    describe('/products/:id (GET)', () => {
+        it('should return the product given a valid id', () => {
+            return request(app.getHttpServer())
+                .put('/products/1')
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.id).toBe(1);
+                    expect(res.body.active).toBe(true);
+                    expect(res.body.linked).toBe(false);
+                    expect(res.body.selectedColor).toBe('blue');
+                });
+        });
+
+        it('should return 404 for an invalid id', () => {
+            return request(app.getHttpServer()).put('/products/4').expect(404);
+        });
+
+        it('should return 406 if id is not a number', () => {
+            return request(app.getHttpServer())
+                .put('/products/notANumber')
+                .expect(406);
+        });
+    });
+
     describe('/products/:id (PUT)', () => {
         const updateProps: Partial<
             Pick<Product, 'active' | 'linked' | 'selectedColor'>
@@ -60,11 +84,11 @@ describe('ProductController (e2e)', () => {
                 .expect(404);
         });
 
-        it('should return 400 if id is not a number', () => {
+        it('should return 406 if id is not a number', () => {
             return request(app.getHttpServer())
                 .put('/products/notANumber')
                 .send(updateProps)
-                .expect(400);
+                .expect(406);
         });
     });
 });
