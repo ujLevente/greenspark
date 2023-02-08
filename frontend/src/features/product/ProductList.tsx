@@ -1,4 +1,11 @@
-import { Box, Card, Divider, styled, Typography } from '@mui/material';
+import {
+    Box,
+    Card,
+    Divider,
+    Skeleton,
+    styled,
+    Typography,
+} from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '../../api/products';
 import { ProductItem } from './ProductItem';
@@ -9,19 +16,34 @@ export function ProductList() {
         queryFn: fetchProducts,
     });
 
-    if (!data) return null;
-
     return (
         <ContainerCard>
-            <Typography color="common.black" variant="h3">
-                Per product widgets
-            </Typography>
+            {data ? (
+                <Typography color="common.black" variant="h3">
+                    Per product widgets
+                </Typography>
+            ) : (
+                <Skeleton variant="rectangular" width={300} height={36} />
+            )}
             <Divider sx={{ mt: 1.5, mb: 2.5, height: '2px' }} />
-            <ProductContainerBox>
-                {data.map((product) => (
-                    <ProductItem key={product.id} product={product} />
-                ))}
-            </ProductContainerBox>
+            {data ? (
+                <ProductContainerBox>
+                    {data.map((product) => (
+                        <ProductItem key={product.id} product={product} />
+                    ))}
+                </ProductContainerBox>
+            ) : (
+                <ProductContainerBox>
+                    {[1, 2, 3].map((num) => (
+                        <Skeleton
+                            key={num}
+                            variant="rectangular"
+                            width={220}
+                            height={150}
+                        />
+                    ))}
+                </ProductContainerBox>
+            )}
         </ContainerCard>
     );
 }
