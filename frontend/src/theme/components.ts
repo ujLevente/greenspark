@@ -1,6 +1,19 @@
 import { Components } from '@mui/material';
 
 export const components: Components = {
+    MuiLink: {
+        styleOverrides: {
+            underlineNone: {
+                fontWeight: 700,
+                textDecoration: 'none',
+                transition: 'opacity 0.3s',
+
+                '&:hover': {
+                    opacity: 0.7,
+                },
+            },
+        },
+    },
     MuiCheckbox: {
         styleOverrides: {
             root: {

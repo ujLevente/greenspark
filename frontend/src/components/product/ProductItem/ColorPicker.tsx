@@ -16,6 +16,8 @@ export function ColorPicker({ onChange, value }: ColorPickerProps) {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                mt: '1px',
+                mb: '3px',
             }}
         >
             <Typography>Badge colour</Typography>

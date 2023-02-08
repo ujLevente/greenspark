@@ -1,8 +1,15 @@
-import { Box, Checkbox, FormControlLabel, Switch } from '@mui/material';
+import {
+    Box,
+    Checkbox,
+    FormControlLabel,
+    Switch,
+    Typography,
+} from '@mui/material';
 import { Product } from '../../../api/products';
 import { useOptimisticUpdate } from '../hooks/useOptimisticUpdate';
 import { ColorPicker } from './ColorPicker';
 import { ProductItemHeader } from './ProductItemHeader';
+import { PublicProfileToolTip } from './PublicProfileToolTip';
 
 type ProductItemProps = {
     product: Product;
@@ -47,7 +54,12 @@ export function ProductItem({ product }: ProductItemProps) {
                             }}
                         />
                     }
-                    label="Link to Public Profile"
+                    label={
+                        <Typography>
+                            Link to Public Profile
+                            <PublicProfileToolTip />
+                        </Typography>
+                    }
                     labelPlacement="start"
                     sx={{
                         margin: 0,
@@ -64,7 +76,7 @@ export function ProductItem({ product }: ProductItemProps) {
                         <Switch
                             color="primary"
                             sx={{
-                                marginRight: '-6px',
+                                marginRight: '-12px',
                             }}
                         />
                     }

@@ -23,14 +23,7 @@ module.exports = {
     rules: {
         'react/jsx-props-no-spreading': 0,
         '@typescript-eslint/no-use-before-define': 0,
-        'import/no-extraneous-dependencies': [
-            'error',
-            {
-                devDependencies: false,
-                optionalDependencies: false,
-                peerDependencies: false,
-            },
-        ],
+        'import/no-extraneous-dependencies': 0,
         'react/react-in-jsx-scope': 0,
         'import/prefer-default-export': 0,
         'no-unused-vars': 'off',
