@@ -1,4 +1,4 @@
-# greenspark
+# Green Spark
 
 ## How to run
 
